@@ -33,9 +33,9 @@ st.write(data.tail())
 
 def plot_raw_data():
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data['Data'], y=data['Apertura'], name='stock_open'))
-    fig.add_trace(go.Scatter(x=data['Data'], y=data['Chiusura'], name='stock_close'))
-    fig.layout.update(title_text="I dati nel tempo", xaxis_rangeslider_visible=True)
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='stock_open'))
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='stock_close'))
+    fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True)
     st.plotly_chart(fig)
 
 plot_raw_data()
