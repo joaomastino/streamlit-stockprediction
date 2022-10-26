@@ -13,9 +13,9 @@ TODAY = date.today().strftime("%Y-%m-%d")
 st.title("Stock Prediction App")
 
 stocks = ("MT.MI", "LVMH.MI", "KER.PA", "PST.MI", "9638.HK", "TIT.MI", "FM.MI", "ISP.MI", "MONC.MI", "TGYM.MI", "CPR.MI", "ENV.MI", "BZU.MI")
-select_stocks = st.selectbox("Select dataset for prediction", stocks)
+select_stocks = st.selectbox("Seleziona il dataset per la predizione", stocks)
 
-n_years = st.slider("Years of prediction:", 1, 4)
+n_years = st.slider("Anni di predizione:", 1, 4)
 period = n_years * 365
 
 @st.cache
@@ -24,18 +24,18 @@ def load_data(ticker):
     data.reset_index(inplace=True)
     return data
 
-data_load_state = st.text("Load data...")
+data_load_state = st.text("Sto caricando i dati...")
 data = load_data(select_stocks)
-data_load_state.text("Loading data... done!")
+data_load_state.text("Carico i dati... fatto!")
 
-st.subheader('Raw data')
+st.subheader('I dati in tabella')
 st.write(data.tail())
 
 def plot_raw_data():
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='stock_open'))
-    fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='stock_close'))
-    fig.layout.update(title_text="Time Series Data", xaxis_rangeslider_visible=True)
+    fig.add_trace(go.Scatter(x=data['Data'], y=data['Apertura'], name='stock_open'))
+    fig.add_trace(go.Scatter(x=data['Data'], y=data['Chiusura'], name='stock_close'))
+    fig.layout.update(title_text="I dati nel tempo", xaxis_rangeslider_visible=True)
     st.plotly_chart(fig)
 
 plot_raw_data()
@@ -51,7 +51,7 @@ m.fit(df_train)
 future = m.make_future_dataframe(periods=period)
 forecast = m.predict(future)
 
-st.subheader('Forecast data')
+st.subheader('Dati predittivi')
 st.write(forecast.tail())
 
 st.write('forecast data')
